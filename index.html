@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    #question-container {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .option {
+      margin-bottom: 10px;
+    }
+
+    .explanation-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #helpContent a.btn {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    #helpContent a.btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #6f42c1, #0d6efd);
+    }
+
+    #helpContent img {
+      transition: transform 0.3s ease;
+    }
+
+    #helpContent img:hover {
+      transform: scale(1.05);
+    }
+
+    #helpContent a.btn {
+      background: linear-gradient(90deg, #0d6efd, #6f42c1);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    #helpContent a.btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #6f42c1, #0d6efd);
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0d6efd;
+      --muted: #6c757d
+    }
+
+    body {
+      background: linear-gradient(180deg, #1e0101, #d1d2d4);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0
+    }
+
+    .card-app {
+      border-radius: 16px;
+      box-shadow: 0 8px 28px rgba(13, 110, 253, 0.06)
+    }
+
+    /* Smooth hide/show for question navigator */
+    #question-nav {
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+      overflow: hidden;
+    }
+
+    #question-nav.hidden {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      /* disables clicks when hidden */
+    }
+
+
+    .question-box {
+      padding: 22px;
+      background: #fff;
+      border-radius: 12px;
+      min-height: 260px;
+      height: 100%;
+      max-height: none;
+      overflow: visible;
+
+    }
+
+    .question-text {
+      font-size: 1.05rem
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px
+    }
+
+    .option-label {
+      flex: 1 1 48%;
+      min-height: 64px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #e6eef9;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      background: #fbfdff;
+      font-weight: 600
+    }
+
+    .option-label .badge-pos {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700
+    }
+
+    .option-label.selected {
+      background: linear-gradient(90deg, #e6f6ff, #f1fbff);
+      border-color: var(--accent)
+    }
+
+    .option-label.correct {
+      outline: 3px solid rgba(40, 167, 69, 0.12)
+    }
+
+    .option-label.wrong {
+      outline: 3px solid rgba(220, 53, 69, 0.08)
+    }
+
+    .question-nav {
+      gap: 8px;
+      margin-top: 18px
+    }
+
+    .qbtn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700
+    }
+
+    .qbtn.default {
+      background: #f8f9fb;
+      border: 1px solid #e6eef9
+    }
+
+    .qbtn.answered {
+      background: #28a745;
+      color: #fff
+    }
+
+    .qbtn.not-answered {
+      background: #dc3545;
+      color: #fff
+    }
+
+    .qbtn.review {
+      background: #ffc107;
+      color: #212529
+    }
+
+    .qbtn.review-answered {
+      background: linear-gradient(90deg, #ffc107 50%, #28a745 50%);
+      color: #212529
+    }
+
+    .qbtn.current {
+      box-shadow: 0 6px 18px rgba(13, 110, 253, 0.12);
+      border: 2px solid rgba(13, 110, 253, 0.12)
+    }
+
+    #timer {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #0d6efd;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      z-index: 1100
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px
+    }
+
+    .progress-wrap {
+      height: 10px;
+      border-radius: 20px;
+      background: #e9f2ff;
+      overflow: hidden
+    }
+
+    .progress-inner {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #6f42c1)
+    }
+
+    #review-container .card {
+      border-radius: 12px
+    }
+
+    @media (max-width:680px) {
+      .option-label {
+        flex-basis: 100%
+      }
+
+      .qbtn {
+        width: 40px;
+        height: 40px
+      }
+    }
+
+
+    /* ---------- instant feedback UI (paste in <style> block) ---------- */
+
+    /* overlay blink on body */
+    body.blink-green::before,
+    body.blink-red::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2000;
+      opacity: 0;
+    }
+
+    body.blink-green::before {
+      background: linear-gradient(180deg, rgba(40, 167, 69, 0.14), rgba(40, 167, 69, 0.08));
+      animation: blinkGreen 900ms ease-out;
+    }
+
+    body.blink-red::before {
+      background: linear-gradient(180deg, rgba(220, 53, 69, 0.14), rgba(220, 53, 69, 0.08));
+      animation: blinkRed 900ms ease-out;
+    }
+
+    @keyframes blinkGreen {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+
+      10% {
+        opacity: 1;
+        transform: scale(1.01);
+      }
+
+      70% {
+        opacity: 0.35;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes blinkRed {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+
+      10% {
+        opacity: 1;
+        transform: scale(1.01);
+      }
+
+      70% {
+        opacity: 0.35;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1);
+      }
+    }
+
+    /* option state visuals */
+    .option-label.correct {
+      border-color: #28a745 !important;
+      background: linear-gradient(90deg, rgba(40, 167, 69, 0.12), rgba(40, 167, 69, 0.04));
+      box-shadow: 0 6px 20px rgba(40, 167, 69, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .option-label.wrong {
+      border-color: #dc3545 !important;
+      background: linear-gradient(90deg, rgba(220, 53, 69, 0.08), rgba(220, 53, 69, 0.03));
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.06);
+      transform: translateY(-2px);
+    }
+
+    /* show icons in badge-pos when feedback shown */
+    .option-label .badge-pos {
+      transition: transform 0.22s ease;
+    }
+
+    .option-label.correct .badge-pos {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .option-label.wrong .badge-pos {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    /* disable option clicks while showing feedback */
+    .options.disabled .option-label {
+      pointer-events: none;
+      opacity: 0.94;
+    }
+
+    /* subtle pulse of correct/wrong label */
+    @keyframes pulseGood {
+      0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.18);
+      }
+
+      70% {
+        box-shadow: 0 0 0 14px rgba(40, 167, 69, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+      }
+    }
+
+    @keyframes pulseBad {
+      0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.18);
+      }
+
+      70% {
+        box-shadow: 0 0 0 14px rgba(220, 53, 69, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+      }
+    }
+
+    .option-label.correct {
+      animation: pulseGood 900ms ease-out;
+    }
+
+    .option-label.wrong {
+      animation: pulseBad 900ms ease-out;
+    }
+
+
+    body.darkmode {
+      background: #000 !important;
+      color: #f8f9fa !important;
+    }
+
+    body.darkmode .question-box,
+    body.darkmode .card,
+    body.darkmode .card-app {
+      background: #181818 !important;
+      border-color: #282828 !important;
+      color: #f8f9fa !important;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    body.darkmode .option-label {
+      background: #232323 !important;
+      color: #f8f9fa !important;
+      border-color: #323232 !important;
+    }
+
+    body.darkmode .option-label.selected {
+      background: #222233 !important;
+    }
+
+    body.darkmode .btn,
+    body.darkmode .btn:focus {
+      background: #222 !important;
+      color: #f8f9fa !important;
+      border-color: #444 !important;
+    }
+
+    body.darkmode #helpModal .modal-content {
+      background-color: #181818 !important;
+      color: #f8f9fa !important;
+      border-color: #282828 !important;
+    }
+
+    body.darkmode #helpModal .modal-body {
+      background-color: #181818 !important;
+      color: #f8f9fa !important;
+    }
+
+    body.darkmode #helpModal .btn-primary {
+      background-color: #333366 !important;
+      border-color: #333366 !important;
+      color: #f8f9fa !important;
+    }
+
+    body.darkmode #helpModal .btn-primary:hover {
+      background-color: #444488 !important;
+      border-color: #444488 !important;
+    }
+
+    body.darkmode #scoreModal .modal-content,
+    body.darkmode #explanationModal .modal-content {
+      background-color: #181818 !important;
+      color: #f8f9fa !important;
+      border-color: #282828 !important;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    body.darkmode #scoreModal .modal-body,
+    body.darkmode #explanationModal .modal-body {
+      background-color: #181818 !important;
+      color: #f8f9fa !important;
+    }
+
+    body.darkmode #scoreModal .btn-secondary,
+    body.darkmode #explanationModal .btn-close {
+      background-color: #222 !important;
+      color: #f8f9fa !important;
+      border: none !important;
+    }
+
+    body.darkmode #scoreModal .btn-secondary:hover,
+    body.darkmode #explanationModal .btn-close:hover {
+      background-color: #444 !important;
+      color: #fff !important;
+    }
+
+    /* Dark Mode Feedback Colors (High Specificity) */
+    body.darkmode #options .option-label.correct {
+      background-color: #1c4a24 !important;
+      /* Dark Green */
+      border-color: #28a745 !important;
+      /* Bright Green Border */
+      color: #fff !important;
+    }
+
+    body.darkmode #options .option-label.wrong {
+      background-color: #5a2d2d !important;
+      /* Dark Red */
+      border-color: #dc3545 !important;
+      /* Bright Red Border */
+      color: #fff !important;
+    }
+
+
+    /* Color-codes for the post-submit review box in Dark Mode */
+    body.darkmode #scoreContent .card.bg-success {
+      background-color: #1c4a24 !important;
+      /* Dark Green for correct */
+      border-color: #28a745 !important;
+    }
+
+    body.darkmode #scoreContent .card.bg-danger {
+      background-color: #5a2d2d !important;
+      /* Dark Red for wrong */
+      border-color: #dc3545 !important;
+    }
+
+    body.darkmode #scoreContent .card.bg-secondary {
+      background-color: #343a40 !important;
+      /* Dark Grey for unanswered */
+      border-color: #6c757d !important;
+    }
+
+    /* Ensure text inside these cards is white */
+    body.darkmode #scoreContent .card .text-white {
+      color: #fff !important;
+    }
+
+
+    .qbtn.skipped {
+      background-color: #ada7a0b9;
+      /* Brown */
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+
+
+
+
+
+  <div class="container py-4">
+    <!-- <div>
+      <center> <b style="font-size: larger; color: #f8f9fb; text-decoration: underline;"> Haryanaka Dynasty : 544 BC-412 BC		 </b>
+      </center>
+    </div> -->
+    <div class="topbar mb-3">
+      <div style="display:flex; align-items:center; gap:15px; color:#fff; font-weight:600;">
+        <span id="modeLabel">Light Mode</span>
+        <button id="modeSwitcher" class="btn btn-dark">🌙 Dark Mode</button>
+
+        <span id="hintLabel">Hint: ON</span>
+        <button id="hintToggle" class="btn btn-secondary">Exam Mode</button>
+      </div>
+
+
+      <div class="text-end">
+
+        <div id="timer">00:00</div>
+      </div>
+    </div>
+
+    <div class="card card-app p-3">
+      <div class="mb-3">
+        <div class="progress-wrap">
+          <div id="timeProgress" class="progress-inner" style="width:0%"></div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-8">
+          <div class="question-box" id="question-box">
+            <div id="question-image" class="mb-3 text-center"></div>
+            <div id="questionText" class="question-text mb-2">loading...</div>
+            <div id="options" class="options"></div>
+
+            <div class="controls">
+              <button id="prevBtn" class="btn btn-outline-secondary">⟵ Previous</button>
+              <button id="saveNextBtn" class="btn btn-primary">Save & Next</button>
+              <button id="reviewNextBtn" class="btn btn-warning">Mark for Review & Next</button>
+              <button id="clearBtn" class="btn btn-outline-danger">Clear Response</button>
+           
+
+            </div>
+
+
+
+
+            <div class="mt-2">
+              <button id="helpBtn" class="btn btn-info">Help!</button>
+              <button id="reviewSummaryBtn" class="btn btn-success" style="display: none;">📊 Show Summary</button>
+
+            </div>
+
+          </div>
+
+          <div id="review-container" class="mt-3" style="display:none;"></div>
+
+        </div>
+
+
+
+
+
+        <div class="col-lg-4">
+
+          <div class="d-grid mb-2">
+            <button id="toggleNavBtn" class="btn btn-outline-primary">
+              👁️ Toggle Question Navigator
+            </button>
+          </div>
+          <div class="card p-3 mb-3">
+
+            <h6>Question Navigator</h6>
+            <div id="question-nav" class="d-flex flex-wrap question-nav mt-2"></div>
+
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="small text-muted">Answered</div>
+                <div class="d-flex gap-2 mt-2"><span class="badge bg-success">&nbsp;</span> <small
+                    class="text-muted">Attempted</small></div>
+              </div>
+              <div>
+                <div class="small text-muted">Marked for Review</div>
+                <div class="d-flex gap-2 mt-2"><span class="badge bg-warning">&nbsp;</span> <small
+                    class="text-muted">Review</small></div>
+              </div>
+            </div>
+
+            <hr>
+            <div class="d-grid">
+              <button id="submitBtn" class="btn btn-danger">Submit Test</button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Score Modal -->
+  <div class="modal fade" id="scoreModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Test Summary</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="scoreContent"></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Explanation Modal -->
+  <div class="modal fade" id="explanationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Explanation</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="explanationContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div class="modal fade" id="helpModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Help</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="helpContent"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script1.js"></script>
+  <script src="script2.js"></script>
+
+  <script>
+
+
+    // ---------- feedback sounds ----------
+    const correctSound = new Audio("a.mp3");
+    const wrongSound = new Audio("b.mp3");
+
+    function playFeedbackSound(isCorrect) {
+      if (isCorrect) {
+        correctSound.currentTime = 0;
+        correctSound.play();
+      } else {
+        wrongSound.currentTime = 0;
+        wrongSound.play();
+      }
+    }
+
+    document.getElementById('toggleNavBtn').addEventListener('click', () => {
+      const nav = document.getElementById('question-nav');
+      nav.classList.toggle('hidden');
+
+      // Change button text/icon for clarity
+      const btn = document.getElementById('toggleNavBtn');
+      if (nav.classList.contains('hidden')) {
+        btn.innerHTML = '👁️ Show Question Navigator';
+      } else {
+        btn.innerHTML = '👁️ Hide Question Navigator';
+      }
+    });
+
+    /* ---------- sample data: add your questions here ---------- */
+
+
+    /* ---------- internal state ---------- */
+    const totalQuestions = Object.keys(questions).length;
+    let currentQuestion = 1;
+    const answers = {}; // { [qno]: { selectedMetaId: number|null, review: boolean }}
+    let totalSeconds = 0;
+    let timerInterval = null;
+
+
+
+    /* ---------- helpers ---------- */
+    function shuffleArray(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function shuffleOptionsForQuestion(q) {
+      const mapped = q.options.map((text, idx) => ({ id: idx, text }));
+      const shuffled = shuffleArray(mapped);
+      const origCorrectId = parseInt(q.correct, 10) - 1;
+      const newCorrectIndex = shuffled.findIndex(o => o.id === origCorrectId);
+      q._shuffled = {
+        options: shuffled.map(o => o.text),
+        meta: shuffled, // [{id,text},...]
+        correct: (newCorrectIndex + 1).toString()
+      };
+    }
+
+    function prepareQuestions() {
+      Object.keys(questions).forEach(k => {
+        const q = questions[k];
+        if (!q._shuffled) shuffleOptionsForQuestion(q);
+        // console.log('shuffled', k, q._shuffled.options);
+      });
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[c]);
+    }
+
+    /* ---------- render / interactions ---------- */
+    function buildQuestionNav() {
+      const nav = document.getElementById('question-nav');
+      nav.innerHTML = '';
+      for (let i = 1; i <= totalQuestions; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.id = 'q' + i;
+        btn.className = 'qbtn default';
+        btn.innerText = i;
+        btn.addEventListener('click', () => loadQuestion(i));
+        nav.append(btn);
+        updateNav(i);
+      }
+    }
+
+    function updateNav(num) {
+      const btn = document.getElementById('q' + num);
+      if (!btn) return;
+      btn.className = 'qbtn';
+      const ans = answers[num];
+      if (ans && ans.review) {
+        if (ans.selectedMetaId !== null && ans.selectedMetaId !== undefined) btn.classList.add('review-answered');
+        else btn.classList.add('review');
+      } else if (ans && (ans.selectedMetaId === 0 || ans.selectedMetaId)) {
+        btn.classList.add('answered');
+      } else {
+        btn.classList.add('not-answered');
+      }
+      if (num === currentQuestion) btn.classList.add('current');
+    }
+
+    function renderQuestion(num) {
+  const q = questions[num];
+  if (!q) return;
+  if (!q._shuffled) shuffleOptionsForQuestion(q);
+  const s = q._shuffled;
+
+  const qImg = document.getElementById('question-image');
+  qImg.innerHTML = '';
+  if (q.image) {
+    qImg.innerHTML = `<img src="${escapeHtml(q.image)}" class="img-fluid rounded" style="max-height:240px;">`;
+  }
+
+  document.getElementById('questionText').innerHTML = `<div><strong>Q${num}.</strong> ${escapeHtml(q.text)}</div>`;
+
+  const optionsWrap = document.getElementById('options');
+  optionsWrap.innerHTML = s.meta.map((m, idx) => {
+    const pos = idx + 1;
+    const selected = (answers[num] && answers[num].selectedMetaId === m.id) ? 'selected' : '';
+    return `
+      <label class="option-label ${selected}" data-pos="${pos}" data-original-id="${m.id}">
+        <div class="badge-pos bg-light text-muted">${pos}</div>
+        <div>${escapeHtml(m.text)}</div>
+      </label>
+    `;
+  }).join('');
+
+  // After submission, show correct/wrong answers and disable clicks
+  if (testSubmitted) {
+    const origCorrectId = parseInt(q.correct, 10) - 1;
+    const curAns = answers[num];
+
+    document.querySelectorAll('#options .option-label').forEach((lbl) => {
+      const origId = parseInt(lbl.dataset.originalId, 10);
+
+      // Always show the correct answer
+      if (origId === origCorrectId) {
+        lbl.classList.add('correct');
+        lbl.querySelector('.badge-pos').innerHTML = '✔';
+      }
+
+      // If the user answered and it was wrong, mark their answer as wrong
+      if (curAns && (curAns.selectedMetaId !== null && curAns.selectedMetaId !== undefined)) {
+        if (curAns.selectedMetaId === origId && curAns.selectedMetaId !== origCorrectId) {
+          lbl.classList.add('wrong');
+          lbl.querySelector('.badge-pos').innerHTML = '✖';
+        }
+      }
+    });
+  }
+
+  // Attach click handlers (with a guard to prevent action after submission)
+  document.querySelectorAll('#options .option-label').forEach(lbl => {
+    lbl.addEventListener('click', () => {
+      if (testSubmitted) return; // PREVENT CLICKS AFTER SUBMIT
+
+      if (answers[currentQuestion] && answers[currentQuestion].answeredFeedback) return;
+
+      const origId = parseInt(lbl.dataset.originalId, 10);
+      const pos = parseInt(lbl.dataset.pos, 10);
+      const prev = answers[currentQuestion] || { selectedMetaId: null, review: false };
+
+      answers[currentQuestion] = { selectedMetaId: origId, review: !!prev.review, answeredFeedback: true };
+
+      document.querySelectorAll('#options .option-label').forEach(l => l.classList.remove('selected'));
+      lbl.classList.add('selected');
+
+      const q = questions[currentQuestion];
+      const origCorrectId = parseInt(q.correct, 10) - 1;
+      const correctLbl = Array.from(document.querySelectorAll('#options .option-label'))
+        .find(l => parseInt(l.dataset.originalId, 10) === origCorrectId);
+
+      const isCorrect = (origId === origCorrectId);
+      showInstantFeedback(isCorrect, lbl, correctLbl);
+      updateNav(currentQuestion);
+    });
+  });
+
+  // Mark current in nav
+  document.querySelectorAll('.qbtn').forEach(b => b.classList.remove('current'));
+  const curBtn = document.getElementById('q' + num);
+  if (curBtn) curBtn.classList.add('current');
+}
+
+
+    function loadQuestion(num) {
+      currentQuestion = num;
+      renderQuestion(num);
+      document.getElementById('review-container').style.display = 'none';
+      for (let i = 1; i <= totalQuestions; i++) updateNav(i);
+      enterPressedForQuestion[num] = false; // <--- ADD THIS LINE
+    }
+
+
+    function mark(forReview) {
+      // After submission, this button's function is only to navigate.
+      if (testSubmitted) {
+        if (currentQuestion < totalQuestions) {
+          loadQuestion(currentQuestion + 1);
+        }
+        return; // Important: do not save or modify answers
+      }
+
+      // Original logic for before submission
+      const curAns = answers[currentQuestion];
+      if (!curAns) {
+        // store as not attempted but review flag
+        answers[currentQuestion] = { selectedMetaId: null, review: !!forReview };
+      } else {
+        answers[currentQuestion].review = !!forReview;
+      }
+      updateNav(currentQuestion);
+      if (currentQuestion < totalQuestions) loadQuestion(currentQuestion + 1);
+    }
+
+    function clearResponse() {
+      delete answers[currentQuestion];
+      renderQuestion(currentQuestion);
+      updateNav(currentQuestion);
+    }
+
+
+    function showReviewPanel() {
+      const rc = document.getElementById('review-container');
+      let html = '<h5>Review Panel</h5><div class="list-group">';
+      for (let i = 1; i <= totalQuestions; i++) {
+        const a = answers[i];
+        const status = a ? (a.selectedMetaId === 0 || a.selectedMetaId ? 'Attempted' : 'Not Attempted') : 'Not Attempted';
+        html += `<button class="list-group-item list-group-item-action" onclick="loadQuestion(${i})">Q${i} — ${status} ${a && a.review ? '<span class="badge bg-warning ms-2">Review</span>' : ''}</button>`;
+      }
+      html += '</div>';
+      rc.innerHTML = html;
+      rc.style.display = 'block';
+    }
+
+    function startTimerDisplay() {
+      const prog = document.getElementById('timeProgress');
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+          const s = String(totalSeconds % 60).padStart(2, '0');
+          document.getElementById('timer').innerText = `${m}:${s}`;
+          // progress width (assuming initialSeconds stored)
+          const initial = parseInt(document.body.dataset.initialSeconds || '0', 10);
+          const perc = initial ? ((initial - totalSeconds) / initial) * 100 : 0;
+          prog.style.width = `${perc}%`;
+        } else {
+          document.getElementById('timer').innerText = "Time's up!";
+          clearInterval(timerInterval);
+          autoSubmit();
+        }
+      }, 1000);
+    }
+
+    function autoSubmit() {
+      submitTest(true);
+    }
+
+    function submitTest(isAuto = false) {
+      testSubmitted = true;
+      renderQuestion(currentQuestion);
+
+      // compute scores (default: +2 for correct, -0.5 for wrong)
+      let attempted = 0, correct = 0, wrong = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        const a = answers[i];
+        if (a && (a.selectedMetaId === 0 || a.selectedMetaId)) {
+          attempted++;
+          const origCorrectId = parseInt(questions[i].correct, 10) - 1;
+          if (a.selectedMetaId === origCorrectId) correct++;
+          else wrong++;
+        }
+      }
+      const skipped = totalQuestions - attempted;
+      const score = (correct * 2) - (wrong * 0.5);
+
+      // Build score content
+      let scHtml = `<div class="row"><div class="col-md-6">
+    <h4>Result</h4>
+    <p>Attempted: <strong>${attempted}</strong></p>
+    <p>Correct: <strong>${correct}</strong></p>
+    <p>Wrong: <strong>${wrong}</strong></p>
+    <p>Skipped: <strong>${skipped}</strong></p>
+    <p>Score: <strong>${score}</strong></p>
+  </div><div class="col-md-6">
+    <h5>Summary</h5>
+    <div class="progress" style="height:16px"><div class="progress-bar" role="progressbar" style="width:${Math.round((correct / totalQuestions) * 100)}%">${Math.round((correct / totalQuestions) * 100)}%</div></div>
+  </div></div>
+  <hr>
+  <h5>Question Review</h5>`;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const q = questions[i];
+        const a = answers[i];
+        const origCorrectId = parseInt(q.correct, 10) - 1;
+        const userAnsText = (a && (a.selectedMetaId === 0 || a.selectedMetaId)) ? q._shuffled.meta.find(m => m.id === a.selectedMetaId).text : 'Not Attempted';
+        const correctAnsText = q._shuffled.meta.find(m => m.id === origCorrectId).text;
+        const bg = (a && (a.selectedMetaId === 0 || a.selectedMetaId)) ? (a.selectedMetaId === origCorrectId ? 'bg-success text-white' : 'bg-danger text-white') : 'bg-secondary text-white';
+
+        scHtml += `<div class="card mb-2 ${bg}"><div class="card-body">
+      <p><strong>Q${i}.</strong> ${escapeHtml(q.text)}</p>
+      <p><strong>Your Answer:</strong> ${escapeHtml(userAnsText)}</p>
+      <p><strong>Correct Answer ✅:</strong> ${escapeHtml(correctAnsText)}</p>
+    ${explanations[i] ? `<button class="btn btn-sm btn-light mt-2" onclick="showExplanation(${i})">View Explanation</button>` : ''}
+<div class="mt-2">
+  <a href="https://www.google.com/search?q=${encodeURIComponent(questions[i].text)}" 
+     target="_blank" 
+     class="btn btn-sm btn-primary">
+     🔍 Search it on Google
+  </a>
+</div>
+
+       </div></div>`;
+      }
+
+      document.getElementById('scoreContent').innerHTML = scHtml;
+      new bootstrap.Modal(document.getElementById('scoreModal')).show();
+
+      // hide main UI optionally
+      //   document.getElementById('question-box').style.display = 'none';
+      // document.getElementById('question-nav').style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'none';
+    }
+
+    function showExplanation(num) {
+      const q = questions[num];
+      const e = explanations[num];
+      if (!q) return;
+
+      let html = `
+    <p><strong>Q${num}.</strong> ${q.text}</p>
+    <p><strong>Options:</strong></p>
+    <ul>
+      ${q.options.map((opt, idx) => `<li>${idx + 1}. ${opt}</li>`).join('')}
+    </ul>
+    <p><strong>Correct Answer:</strong> ${q.options[parseInt(q.correct) - 1]}</p>
+    <hr>
+    <p><strong>Explanation:</strong> ${e.text}</p>
+  `;
+
+      // ✅ show image if available in explanation
+      if (e.image) {
+        html += `
+      <div class="text-center mt-3">
+        <img src="${e.image}" alt="Explanation Image" class="img-fluid rounded shadow">
+      </div>
+    `;
+      }
+
+      document.getElementById('explanationContent').innerHTML = html;
+      new bootstrap.Modal(document.getElementById('explanationModal')).show();
+    }
+
+
+
+
+    /* ---------- initialization ---------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      prepareQuestions();
+      buildQuestionNav();
+      loadQuestion(1);
+
+      // ask time in minutes
+      (function askTime() {
+        const mins = parseInt(prompt('Enter test time in minutes (e.g. 10)'), 10);
+        if (mins && mins > 0) {
+          totalSeconds = mins * 60;
+          document.body.dataset.initialSeconds = totalSeconds;
+          startTimerDisplay();
+        } else {
+          // default to 10 minutes
+          totalSeconds = 10 * 60;
+          document.body.dataset.initialSeconds = totalSeconds;
+          startTimerDisplay();
+        }
+      })();
+
+      // buttons
+      document.getElementById('saveNextBtn').addEventListener('click', () => { mark(false); });
+      document.getElementById('reviewNextBtn').addEventListener('click', () => { mark(true); });
+      document.getElementById('prevBtn').addEventListener('click', () => { if (currentQuestion > 1) loadQuestion(currentQuestion - 1); });
+      document.getElementById('clearBtn').addEventListener('click', clearResponse);
+     
+
+      document.getElementById('submitBtn').addEventListener('click', () => { if (confirm('Submit test?')) submitTest(false); });
+    });
+
+
+    let enterPressedForQuestion = {};
+
+
+
+    document.addEventListener("keydown", function (e) {
+      // Number keys 1-4 (both number row and numpad)
+      if (["1", "2", "3", "4"].includes(e.key)) {
+        const idx = parseInt(e.key, 10) - 1;
+        const optionLabels = document.querySelectorAll("#options .option-label");
+        if (optionLabels[idx]) {
+          optionLabels[idx].click();
+          enterPressedForQuestion[currentQuestion] = false; // reset for new answer
+          e.preventDefault();
+          return;
+        }
+      }
+      // Enter key handling
+      if (e.key === "Enter") {
+        // Only allow Enter if NOT already used for this question
+        if (!enterPressedForQuestion[currentQuestion]) {
+          mark(false);
+          enterPressedForQuestion[currentQuestion] = true;
+        }
+        e.preventDefault();
+        return;
+      }
+      // ArrowLeft
+      if (e.key === "ArrowLeft") {
+        if (currentQuestion > 1) loadQuestion(currentQuestion - 1);
+        e.preventDefault();
+        return;
+      }
+      // ArrowRight
+      if (e.key === "ArrowRight") {
+        if (currentQuestion < totalQuestions) {
+          mark(false);
+          enterPressedForQuestion[currentQuestion + 1] = false;
+        }
+        e.preventDefault();
+        return;
+      }
+    });
+
+
+    // Help button functionality with Google Search and image support
+    // Help button functionality with image and Google search support
+    document.getElementById('helpBtn').addEventListener('click', () => {
+      const q = questions[currentQuestion];
+      const e = explanations[currentQuestion];
+
+      if (q) {
+        // Create Google Search URL
+        const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(q.text)}`;
+
+        // Start building help content
+        let helpHTML = `
+      <p><strong>Q${currentQuestion}.</strong> ${q.text}</p>
+      <hr>
+    `;
+
+        // Add explanation text if available
+        if (e && e.text) {
+          helpHTML += `<p>${e.text}</p>`;
+        } else {
+          helpHTML += `<p>No help available for this question.</p>`;
+        }
+
+        // Add image if available
+        if (e && e.image) {
+          helpHTML += `
+        <div class="text-center my-3">
+          <img src="${e.image}" alt="Explanation Image" class="img-fluid rounded shadow-sm" 
+               style="max-height:250px; object-fit:contain; border:2px solid #ddd; border-radius:10px;">
+        </div>
+      `;
+        }
+
+        // Add the Google Search button
+        helpHTML += `
+      <div class="text-center mt-4">
+        <a href="${searchUrl}" target="_blank" 
+           class="btn btn-primary shadow-sm" 
+           style="border-radius:12px; padding:10px 20px; font-weight:600;">
+          🔍 Search it on Google
+        </a>
+      </div>
+    `;
+
+        // Insert content into modal and show it
+        document.getElementById('helpContent').innerHTML = helpHTML;
+        new bootstrap.Modal(document.getElementById('helpModal')).show();
+      } else {
+        document.getElementById('helpContent').innerHTML = `<p>No help available for this question.</p>`;
+        new bootstrap.Modal(document.getElementById('helpModal')).show();
+      }
+    });
+
+    /* ---------- helper: instant feedback (paste into your <script>) ---------- */
+
+    function showInstantFeedback(isCorrect, selectedLbl, correctLbl) {
+      // suppress feedback if hint is disabled
+      if (!hintEnabled) {
+        // only visually select the clicked option, no colors or icons
+        document.getElementById('options').classList.remove('disabled');
+        return;
+      }
+
+      // normal feedback code follows
+      const optionsWrap = document.getElementById('options');
+      optionsWrap.classList.add('disabled');
+
+      playFeedbackSound(isCorrect);
+
+      if (isCorrect) {
+        selectedLbl.classList.add('correct');
+        selectedLbl.querySelector('.badge-pos').innerHTML = '✔';
+        document.body.classList.add('blink-green');
+      } else {
+        selectedLbl.classList.add('wrong');
+        selectedLbl.querySelector('.badge-pos').innerHTML = '✖';
+        document.body.classList.add('blink-red');
+        if (correctLbl) {
+          correctLbl.classList.add('correct');
+          correctLbl.querySelector('.badge-pos').innerHTML = '✔';
+        }
+      }
+
+      setTimeout(() => {
+        document.body.classList.remove('blink-green', 'blink-red');
+        optionsWrap.classList.remove('disabled');
+      }, 900);
+    }
+
+    let isDarkMode = false;
+    let hintEnabled = true;
+    let testSubmitted = false;
+
+    document.getElementById('modeSwitcher').addEventListener('click', () => {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('darkmode', isDarkMode);
+      const modeLabel = document.getElementById('modeLabel');
+      const btn = document.getElementById('modeSwitcher');
+      if (isDarkMode) {
+        modeLabel.textContent = 'Dark Mode';
+        btn.innerHTML = '☀️ Light Mode';
+      } else {
+        modeLabel.textContent = 'Light Mode';
+        btn.innerHTML = '🌙 Dark Mode';
+      }
+    });
+
+    document.getElementById('hintToggle').addEventListener('click', () => {
+      hintEnabled = !hintEnabled;
+      const hintLabel = document.getElementById('hintLabel');
+      const btn = document.getElementById('hintToggle');
+      if (hintEnabled) {
+        hintLabel.textContent = 'Hint: ON';
+        btn.innerText = 'Exam Mode';
+        document.getElementById('helpBtn').style.display = '';
+      } else {
+        hintLabel.textContent = 'Hint: OFF';
+        btn.innerText = 'Practice Mode';
+        document.getElementById('helpBtn').style.display = 'none';
+      }
+    });
+
+
+    document.getElementById('reviewSummaryBtn').addEventListener('click', () => {
+      new bootstrap.Modal(document.getElementById('scoreModal')).show();
+    });
+
+
+    function updateNav(num) {
+      const btn = document.getElementById('q' + num);
+      if (!btn) return;
+
+      // Clear all previous status classes
+      btn.className = 'qbtn';
+
+      if (testSubmitted) {
+        const q = questions[num];
+        const ans = answers[num];
+        const origCorrectId = parseInt(q.correct, 10) - 1;
+
+        if (ans && (ans.selectedMetaId !== null && ans.selectedMetaId !== undefined)) {
+          // Question was answered
+          if (ans.selectedMetaId === origCorrectId) {
+            btn.classList.add('answered'); // Will be green
+          } else {
+            btn.classList.add('not-answered'); // Will be red
+          }
+        } else {
+          // Question was not attempted
+          btn.classList.add('skipped'); // Will be brown
+        }
+      } else {
+        // Original logic for before submission
+        const ans = answers[num];
+        if (ans && ans.review) {
+          if (ans.selectedMetaId !== null && ans.selectedMetaId !== undefined) {
+            btn.classList.add('review-answered');
+          } else {
+            btn.classList.add('review');
+          }
+        } else if (ans && (ans.selectedMetaId === 0 || ans.selectedMetaId)) {
+          btn.classList.add('answered');
+        } else {
+          btn.classList.add('not-answered');
+        }
+      }
+
+      // Always highlight the current question
+      if (num === currentQuestion) {
+        btn.classList.add('current');
+      }
+    }
+
+
+    function submitTest(isAuto = false) {
+      testSubmitted = true;
+
+      // Adjust button visibility and text for review mode
+      const saveNextButton = document.getElementById('saveNextBtn');
+      saveNextButton.textContent = 'Next ⟶'; // Change text to "Next"
+
+      document.getElementById('reviewNextBtn').style.display = 'none';
+      document.getElementById('clearBtn').style.display = 'none';
+      document.getElementById('submitBtn').style.display = 'none';
+      document.getElementById('reviewSummaryBtn').style.display = 'inline-block';
+
+
+      // compute scores (default: +2 for correct, -0.5 for wrong)
+      let attempted = 0, correct = 0, wrong = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        const a = answers[i];
+        if (a && (a.selectedMetaId === 0 || a.selectedMetaId)) {
+          attempted++;
+          const origCorrectId = parseInt(questions[i].correct, 10) - 1;
+          if (a.selectedMetaId === origCorrectId) correct++;
+          else wrong++;
+        }
+      }
+      const skipped = totalQuestions - attempted;
+      const score = (correct * 2) - (wrong * 0.5);
+
+      // Build score content
+      let scHtml = `<div class="row"><div class="col-md-6">
+  <h4>Result</h4>
+  <p>Attempted: <strong>${attempted}</strong></p>
+  <p>Correct: <strong>${correct}</strong></p>
+  <p>Wrong: <strong>${wrong}</strong></p>
+  <p>Skipped: <strong>${skipped}</strong></p>
+  <p>Score: <strong>${score}</strong></p>
+</div><div class="col-md-6">
+  <h5>Summary</h5>
+  <div class="progress" style="height:16px"><div class="progress-bar" role="progressbar" style="width:${Math.round((correct / totalQuestions) * 100)}%">${Math.round((correct / totalQuestions) * 100)}%</div></div>
+</div></div>
+<hr>
+<h5>Question Review</h5>`;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const q = questions[i];
+        const a = answers[i];
+        const origCorrectId = parseInt(q.correct, 10) - 1;
+        const userAnsText = (a && (a.selectedMetaId === 0 || a.selectedMetaId)) ? q._shuffled.meta.find(m => m.id === a.selectedMetaId).text : 'Not Attempted';
+        const correctAnsText = q._shuffled.meta.find(m => m.id === origCorrectId).text;
+        const bg = (a && (a.selectedMetaId === 0 || a.selectedMetaId)) ? (a.selectedMetaId === origCorrectId ? 'bg-success text-white' : 'bg-danger text-white') : 'bg-secondary text-white';
+
+        scHtml += `<div class="card mb-2 ${bg}"><div class="card-body">
+    <p><strong>Q${i}.</strong> ${escapeHtml(q.text)}</p>
+    <p><strong>Your Answer:</strong> ${escapeHtml(userAnsText)}</p>
+    <p><strong>Correct Answer ✅:</strong> ${escapeHtml(correctAnsText)}</p>
+  ${explanations[i] ? `<button class="btn btn-sm btn-light mt-2" onclick="showExplanation(${i})">View Explanation</button>` : ''}
+<div class="mt-2">
+  <a href="https://www.google.com/search?q=${encodeURIComponent(questions[i].text)}"
+     target="_blank"
+     class="btn btn-sm btn-primary">
+     🔍 Search it on Google
+  </a>
+</div>
+
+      </div></div>`;
+      }
+
+      document.getElementById('scoreContent').innerHTML = scHtml;
+      new bootstrap.Modal(document.getElementById('scoreModal')).show();
+
+      // Update all nav buttons with their final status colors
+      for (let i = 1; i <= totalQuestions; i++) {
+        updateNav(i);
+      }
+
+      // Re-render the current question to show its correct/wrong state
+      renderQuestion(currentQuestion);
+    }
+
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+
+</html>
