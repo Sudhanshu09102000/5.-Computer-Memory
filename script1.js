@@ -1,154 +1,384 @@
 const questions = {
 1: {
-text: "Which objects were used by primitive people as the earliest counting tools?",
-options: ["Sticks, stones and bones", "Paper and ink marks", "Metal coins", "Clay tablets"],
+text: "What is considered the most essential element of a computer?",
+options: ["Memory", "Keyboard", "Monitor", "Mouse"],
 correct: "1",
-image: ''
+image: ""
 },
 2: {
-text: "The history of computers begins with which early device?",
-options: ["Abacus", "Pascaline", "Napier’s Bones", "Mark I"],
+text: "The performance of a computer mainly depends on which two components?",
+options: ["Memory and CPU", "Keyboard and Mouse", "Monitor and Speaker", "Printer and Scanner"],
 correct: "1",
-image: ''
+image: ""
 },
 3: {
-text: "Around how many years ago is the Abacus believed to have been invented by the Chinese?",
-options: ["Around 4,000 years ago", "Around 2,000 years ago", "Around 6,000 years ago", "Around 500 years ago"],
+text: "Memory is an internal storage medium that is majorly categorized into how many types?",
+options: ["Two types", "Three types", "Four types", "Five types"],
 correct: "1",
-image: ''
+image: ""
 },
 4: {
-text: "Abacus is still used in which of the following countries?",
-options: ["China, Russia and Japan", "India, Nepal and Sri Lanka", "France, Italy and Germany", "USA, Canada and Mexico"],
+text: "Which of the following is a type of main memory?",
+options: ["Primary Memory", "Optical Memory", "Magnetic Tape", "USB Drive"],
 correct: "1",
-image: ''
+image: ""
 },
 5: {
-text: "Who invented Napier’s Bones?",
-options: ["John Napier of Merchiston", "Blaise Pascal", "Gottfried Leibniz", "Herman Hollerith"],
+text: "What term refers to computer memory that a processor accesses first or directly?",
+options: ["Primary Memory", "Secondary Memory", "Cache Disk", "Virtual Memory"],
 correct: "1",
-image: ''
+image: ""
 },
 6: {
-text: "Napier’s Bones was invented in which period?",
-options: ["1550–1617", "1642–1644", "1673–1680", "1830–1840"],
+text: "Primary memory allows the processor to access which type of applications?",
+options: ["Running execution applications", "Deleted applications", "Archived applications", "Encrypted applications"],
 correct: "1",
-image: ''
+image: ""
 },
 7: {
-text: "Which device first used the decimal point?",
-options: ["Napier’s Bones", "Pascaline", "Abacus", "Analytical Engine"],
+text: "Primary memory is also known as what?",
+options: ["Primary storage", "External storage", "Optical memory", "Magnetic storage"],
 correct: "1",
-image: ''
+image: ""
 },
 8: {
-text: "Pascaline was invented in which years?",
-options: ["1642–1644", "1550–1617", "1673–1675", "1820–1825"],
+text: "Which of the following is a volatile memory?",
+options: ["RAM", "ROM", "Optical disk", "Flash drive"],
 correct: "1",
-image: ''
+image: ""
 },
 9: {
-text: "Who invented the Pascaline?",
-options: ["Blaise Pascal", "Charles Babbage", "Gottfried Leibniz", "Vannevar Bush"],
+text: "Which of the following is a non-volatile primary memory?",
+options: ["ROM", "RAM", "Cache", "Virtual memory"],
 correct: "1",
-image: ''
+image: ""
 },
 10: {
-text: "Which machine is believed to be the first mechanical and automatic calculator?",
-options: ["Pascaline", "Abacus", "Mark I", "Differential Analyzer"],
+text: "Which memory type involves Microprocessor, Cache Memory, and Main Memory?",
+options: ["RAM", "ROM", "Magnetic Memory", "Optical Memory"],
 correct: "1",
-image: ''
+image: ""
 },
 11: {
-text: "The stepped reckoner was developed by whom?",
-options: ["Gottfried Wilhelm Leibniz", "Blaise Pascal", "Herman Hollerith", "John Napier"],
+text: "RAM is considered what type of memory?",
+options: ["Volatile memory", "Permanent memory", "Optical memory", "Cached memory"],
 correct: "1",
-image: ''
+image: ""
 },
 12: {
-text: "In which year was the stepped reckoner developed?",
-options: ["1673", "1642", "1830", "1890"],
+text: "What happens to the data stored in RAM when the computer is shut down?",
+options: ["It is lost", "It is permanently stored", "It moves to ROM", "It moves to cache"],
 correct: "1",
-image: ''
+image: ""
 },
 13: {
-text: "Difference Engine was designed in the early 1820s by whom?",
-options: ["Charles Babbage", "Gottfried Leibniz", "Howard Aiken", "Herman Hollerith"],
+text: "RAM stores data and instructions from which storage device while you work?",
+options: ["Hard disk", "Printer", "Monitor", "Scanner"],
 correct: "1",
-image: ''
+image: ""
 },
 14: {
-text: "What type of device was the Difference Engine?",
-options: ["Mechanical computer", "Electronic computer", "Analog computer", "Punch-card reader"],
+text: "RAM is categorized into how many types in the given notes?",
+options: ["Three types", "Two types", "Four types", "Five types"],
 correct: "1",
-image: ''
+image: ""
 },
 15: {
-text: "The Analytical Engine was developed in which year?",
-options: ["1830", "1820", "1673", "1930"],
+text: "Which RAM type must be constantly refreshed to retain data?",
+options: ["DRAM", "SRAM", "SDRAM", "EPROM"],
 correct: "1",
-image: ''
+image: ""
 },
 16: {
-text: "What feature did the Analytical Engine use for input?",
-options: ["Punch-cards", "Metal beads", "Ivory strips", "Vacuum tubes"],
+text: "Which RAM type is faster and less volatile but requires more power and is more expensive?",
+options: ["SRAM", "DRAM", "SDRAM", "PROM"],
 correct: "1",
-image: ''
+image: ""
 },
 17: {
-text: "Tabulating Machine was invented in which year?",
-options: ["1890", "1930", "1830", "1644"],
+text: "Which memory type is a DRAM variant that can run at much higher clock speeds?",
+options: ["SDRAM", "SRAM", "Flash memory", "EPROM"],
 correct: "1",
-image: ''
+image: ""
 },
-18: {
-text: "Who invented the Tabulating Machine?",
-options: ["Herman Hollerith", "Charles Babbage", "Howard Aiken", "Vannevar Bush"],
+    18: {
+text: "ROM is considered what type of memory?",
+options: ["Non-volatile memory", "Volatile memory", "Semi-volatile memory", "Temporary memory"],
 correct: "1",
-image: ''
+image: ""
 },
 19: {
-text: "Which machine was used in the 1890 U.S. Census?",
-options: ["Tabulating Machine", "Analytical Engine", "Differential Analyzer", "Mark I"],
+text: "What does ROM not lose even after power is turned off?",
+options: ["Data or programs written at manufacture", "RAM contents", "Cache data", "Temporary files"],
 correct: "1",
-image: ''
+image: ""
 },
 20: {
-text: "In which year was the Differential Analyzer introduced in the United States?",
-options: ["1930", "1890", "1944", "1830"],
+text: "ROM is a permanent memory containing important instructions needed for which task?",
+options: ["Boot process", "Printing", "Gaming", "Networking"],
 correct: "1",
-image: ''
+image: ""
 },
 21: {
-text: "Who invented the Differential Analyzer?",
-options: ["Vannevar Bush", "Herman Hollerith", "Blaise Pascal", "Howard Aiken"],
+text: "Which is one of the models of ROM mentioned?",
+options: ["PROM", "DRAM", "SDRAM", "Magnetic tape"],
 correct: "1",
-image: ''
+image: ""
 },
 22: {
-text: "What type of computer was the Differential Analyzer?",
-options: ["Analog device", "Mechanical device", "Punch-card machine", "Programmable digital computer"],
+text: "What is the main limitation of PROM?",
+options: ["Data can be written once and cannot be erased", "Requires refreshing", "Is very slow", "Cannot be read"],
 correct: "1",
-image: ''
+image: ""
 },
 23: {
-text: "Mark I was built in which year?",
-options: ["1944", "1930", "1890", "1830"],
+text: "EPROM data is erased by exposing the chip to what?",
+options: ["Ultraviolet light", "Infrared light", "Electrical pulses", "Magnetic fields"],
 correct: "1",
-image: ''
+image: ""
 },
 24: {
-text: "Mark I was a partnership project between which institutions?",
-options: ["IBM and Harvard", "MIT and IBM", "Harvard and Bell Labs", "IBM and Stanford"],
+text: "Which ROM type uses electrical signals to erase data?",
+options: ["EEPROM", "EPROM", "PROM", "CD-ROM"],
 correct: "1",
-image: ''
+image: ""
 },
 25: {
-text: "What was Mark I known as?",
-options: ["The first programmable digital computer", "The first mechanical calculator", "The first analog computer", "The first punch-card sorter"],
+text: "Register memory is located where?",
+options: ["In the CPU", "On the hard disk", "On the motherboard chipset", "Inside the monitor"],
+correct: "1",
+image: ""
+},
+26: {
+text: "Register memory is described as which of the following?",
+options: ["Smallest and fastest memory", "Largest memory", "Slowest memory", "External memory"],
+correct: "1",
+image: ""
+},
+27: {
+text: "What does a register temporarily hold?",
+options: ["Frequently used data and instructions", "Deleted files", "Permanent programs", "Audio signals"],
+correct: "1",
+image: ""
+},
+28: {
+text: "Cache memory is faster than which memory?",
+options: ["Main memory", "ROM", "Magnetic tape", "Optical disk"],
+correct: "1",
+image: ""
+},
+29: {
+text: "Cache memory speeds up system performance by reducing access to what?",
+options: ["Primary memory (RAM)", "Secondary memory", "EPROM", "USB drives"],
+correct: "1",
+image: ""
+},
+30: {
+text: "Semi-volatile memory loses data after some time but offers benefits similar to which type?",
+options: ["Volatile memory", "ROM", "Optical memory", "Magnetic memory"],
+correct: "1",
+image: ""
+},
+31: {
+text: "Virtual memory is controlled by which system component?",
+options: ["Operating system", "Microprocessor", "BIOS", "Printer driver"],
+correct: "1",
+image: ""
+},
+32: {
+text: "In virtual memory, the OS decides what for program code and data?",
+options: ["Physical location", "Voltage level", "Boot order", "Execution time"],
+correct: "1",
+image: ""
+},
+33: {
+text: "Protected memory prevents programs from doing what?",
+options: ["Accessing outside their assigned memory area", "Saving files", "Using CPU time", "Accessing peripherals"],
+correct: "1",
+image: ""
+},
+34: {
+text: "Protected memory improves which two aspects of a computer system?",
+options: ["Reliability and security", "Storage and speed", "Display and graphics", "Power and cooling"],
+correct: "1",
+image: ""
+},
+35: {
+text: "Secondary memory stores data permanently because it is what type of memory?",
+options: ["Non-volatile", "Volatile", "Semi-volatile", "Temporary"],
+correct: "1",
+image: ""
+},
+36: {
+text: "Can the CPU directly access secondary memory?",
+options: ["No", "Yes", "Only during booting", "Only for large files"],
+correct: "1",
+image: ""
+},
+37: {
+text: "Before CPU access, secondary memory data must be transferred to which memory?",
+options: ["Primary memory", "Cache memory", "EEPROM", "Register memory"],
+correct: "1",
+image: ""
+},
+38: {
+text: "Which storage device has enormous storage capacity compared to main memory?",
+options: ["Hard disk", "CD-ROM", "Floppy disk", "Cache memory"],
+correct: "1",
+image: ""
+},
+39: {
+text: "Solid state storage stores data electrically in what component?",
+options: ["Silicon cells", "Glass tape", "Laser pits", "Magnetic strips"],
+correct: "1",
+image: ""
+},
+40: {
+text: "Optical devices use what to read and write data?",
+options: ["Laser", "Magnet", "Electric beam", "Ultraviolet ray"],
+correct: "1",
+image: ""
+},
+41: {
+text: "In optical disks, flat areas are known as what?",
+options: ["Lands", "Pits", "Tracks", "Cylinders"],
+correct: "1",
+image: ""
+},
+42: {
+text: "Magnetic devices represent binary data using magnetised and demagnetised sections of what?",
+options: ["Spinning disk", "Processor chip", "Optical lens", "Plastic strip"],
+correct: "1",
+image: ""
+},
+43: {
+text: "A hard drive contains magnetic platters spinning at speeds between:",
+options: ["5,400 to 15,000 RPM", "100 to 200 RPM", "25,000 to 40,000 RPM", "500 to 900 RPM"],
+correct: "1",
+image: ""
+},
+44: {
+text: "CD-ROM has a standard storage capacity of:",
+options: ["640MB", "4.7GB", "700GB", "2TB"],
+correct: "1",
+image: ""
+},
+45: {
+text: "CD-R allows data to be written how many times?",
+options: ["Once", "Twice", "Unlimited times", "Not writable"],
+correct: "1",
+image: ""
+},
+46: {
+text: "CD-RW supports which feature?",
+options: ["Rewriting multiple times", "Write once only", "No rewriting", "Only audio recording"],
+correct: "1",
+image: ""
+},
+47: {
+text: "A DVD has a typical storage capacity of:",
+options: ["4.7GB", "640MB", "100MB", "50GB"],
+correct: "1",
+image: ""
+},
+48: {
+text: "WORM storage devices allow what?",
+options: ["Write once, read many", "Read only", "Erase and rewrite", "Store audio only"],
+correct: "1",
+image: ""
+},
+49: {
+text: "A floppy disk contains what type of disk inside the plastic casing?",
+options: ["Thin flexible magnetic disk", "Optical glass disk", "Silicon wafer", "Laser-etched plate"],
+correct: "1",
+image: ""
+},
+50: {
+text: "Magnetic tape is used for storing what?",
+options: ["Sound, pictures, or computer data", "Only music", "Only videos", "Only text files"],
+correct: "1",
+image: ""
+},
+51: {
+text: "Flash memory retains data even in the absence of what?",
+options: ["Power supply", "Battery backup", "Secondary storage", "Cooling fan"],
+correct: "1",
+image: ""
+},
+    52: {
+text: "Primary memory is categorized into which two types?",
+options: ["Volatile and non-volatile", "Sequential and direct", "Magnetic and optical", "Internal and external"],
 correct: "1",
 image: ''
 },
+53: {
+text: "Primary memory is also known as:",
+options: ["Internal memory", "External memory", "Virtual memory", "Cache memory"],
+correct: "1",
+image: ''
+},
+54: {
+text: "Which unit can directly access the data stored in primary memory?",
+options: ["Processing unit", "ALU only", "Secondary storage controller", "BIOS only"],
+correct: "1",
+image: ''
+},
+55: {
+text: "Primary memory holds data or information currently used by the processing unit. What is its usual capacity?",
+options: ["16 to 32 GB", "2 to 4 GB", "100 to 200 GB", "1 to 2 TB"],
+correct: "1",
+image: ''
+},
+56: {
+text: "Primary memory can be accessed using which of the following?",
+options: ["Data bus", "Control panel", "I/O controller", "Virtual route"],
+correct: "1",
+image: ''
+},
+57: {
+text: "Which type of memory is costlier than secondary memory?",
+options: ["Primary memory", "Cache memory", "Optical memory", "Virtual memory"],
+correct: "1",
+image: ''
+},
+58: {
+text: "Secondary memory is always of which type?",
+options: ["Non-volatile", "Volatile", "Semi-volatile", "Temporary"],
+correct: "1",
+image: ''
+},
+59: {
+text: "Secondary memory is also known as:",
+options: ["Backup or Additional or Auxiliary memory", "Internal memory", "Temporary memory", "Executable memory"],
+correct: "1",
+image: ''
+},
+60: {
+text: "Data in secondary memory is accessed by the processor only after:",
+options: ["It is copied to primary memory", "A boot cycle", "A direct fetch command", "A DMA reset"],
+correct: "1",
+image: ''
+},
+61: {
+text: "What is the general storage capacity range of secondary memory?",
+options: ["200 GB to terabytes", "16 to 32 GB", "2 to 8 MB", "1 to 2 GB"],
+correct: "1",
+image: ''
+},
+62: {
+text: "Secondary memory is accessed through which channel?",
+options: ["I/O channels", "Data bus", "CPU registers", "Address bus only"],
+correct: "1",
+image: ''
+},
+63: {
+text: "Which memory type is cheaper compared to primary memory?",
+options: ["Secondary memory", "Cache memory", "Register memory", "Virtual memory"],
+correct: "1",
+image: ''
+}
+
+
 
     
 };
